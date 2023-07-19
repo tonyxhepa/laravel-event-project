@@ -32,6 +32,7 @@ class CreateEventRequest extends FormRequest
             'city_id' => 'required',
             'description' => 'required',
             'num_tickets' => 'required',
+            'tags' => 'required|exists:tags,id',
         ];
     }
 }
