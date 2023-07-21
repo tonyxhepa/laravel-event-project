@@ -44,12 +44,28 @@
                                     {{ $event->country->name }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="{{ route('events.edit', $event) }}"
-                                        class="text-green-400 hover:text-green-600">Edit</a>
+                                    <div class="flex space-x-2">
+                                        <a href="{{ route('events.edit', $event) }}"
+                                            class="text-green-400 hover:text-green-600">Edit</a>
+                                        <form method="POST" class="text-red-400 hover:text-red-600"
+                                            action="{{ route('events.destroy', $event) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a href="{{ route('events.destroy', $event) }}"
+                                                onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                                                Delete
+                                            </a>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty
-                            <h1>No events</h1>
+                            <tr>
+                                <td colspan="4" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                                    No events found
+                                </td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
