@@ -14,18 +14,27 @@
                 @auth
                     <div class="flex space-x-2 p-4" x-data="{
                         eventLike: @js($like),
-                        city: null,
-                        cities: [],
+                        savedEvent: @js($savedEvent),
+                        attending: @js($attending),
                         onHandleLike() {
                             axios.post(`/events-like/{{ $event->id }}`).then(res => {
                                 this.eventLike = res.data
                             })
-                    
+                        },
+                        onHandleSavedEvent() {
+                            axios.post(`/events-saved/{{ $event->id }}`).then(res => {
+                                this.savedEvent = res.data
+                            })
+                        },
+                        onHandleAttending() {
+                            axios.post(`/events-attending/{{ $event->id }}`).then(res => {
+                                this.attending = res.data
+                            })
                         }
                     }">
                         <button type="button" @click="onHandleLike"
                             class="text-white  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            :class="eventLike ? 'bg-red-700 hover:bg-red-800' : 'bg-blue-700 hover:bg-blue-800'">
+                            :class="eventLike ? 'bg-red-700 hover:bg-red-800' : 'bg-slate-400 hover:bg-slate-500'">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-3.5 h3.5 mr-2">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -33,18 +42,19 @@
                             </svg>
                             Like
                         </button>
-                        <button type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <button type="button" @click="onHandleSavedEvent"
+                            class="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            :class="savedEvent ? 'bg-yellow-700 hover:bg-yellow-800' : 'bg-slate-400 hover:bg-slate-500'">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-3.5 h3.5 mr-2">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
                             </svg>
-
                             Save
                         </button>
-                        <button type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <button type="button" @click="onHandleAttending"
+                            class="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            :class="attending ? 'bg-indigo-700 hover:bg-indigo-800' : 'bg-slate-400 hover:bg-slate-500'">
                             Attending
                             <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 14 10">

@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AttentingSystemController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventShowController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\LikeSystemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SavedEventSystemController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\Country;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +26,15 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/events', EventController::class);
     Route::resource('/galleries', GalleryController::class);
-    Route::post('/events-like/{id}', LikeSystemController::class)->name('events.like');
+    Route::post(
+        '/events-like/{id}',
+        LikeSystemController::class
+    )->name('events.like');
+    Route::post(
+        '/events-saved/{id}',
+        SavedEventSystemController::class
+    )->name('events.saved');
+    Route::post('/events-attending/{id}', AttentingSystemController::class)->name('events.attending');
 
     Route::get('/countries/{country}', function (Country $country) {
         return response()->json($country->cities);
