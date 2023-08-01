@@ -27,9 +27,9 @@ class Event extends Model
         'num_tickets'
     ];
 
-    protected $casts = [
-        'start_date' => 'date:m/d/Y',
-    ];
+    // protected $casts = [
+    //     'start_date' => 'date:m/d/Y',
+    // ];
 
     public function user(): BelongsTo
     {
