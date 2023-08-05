@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendingEventController;
 use App\Http\Controllers\AttentingSystemController;
 use App\Http\Controllers\DeleteCommentController;
 use App\Http\Controllers\EventController;
@@ -7,8 +8,10 @@ use App\Http\Controllers\EventIndexController;
 use App\Http\Controllers\EventShowController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GalleryIndexController;
+use App\Http\Controllers\LikedEventController;
 use App\Http\Controllers\LikeSystemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SavedEventController;
 use App\Http\Controllers\SavedEventSystemController;
 use App\Http\Controllers\StoreCommentController;
 use App\Http\Controllers\TestEventController;
@@ -33,6 +36,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/events', EventController::class);
     Route::resource('/galleries', GalleryController::class);
+
+    Route::get('/liked-events', LikedEventController::class)->name('likedEvents');
+    Route::get('/saved-events', SavedEventController::class)->name('savedEvents');
+    Route::get('/attendind-events', AttendingEventController::class)->name('attendingEvents');
     Route::post(
         '/events-like/{id}',
         LikeSystemController::class
